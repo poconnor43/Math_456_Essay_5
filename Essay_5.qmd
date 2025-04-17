@@ -6,7 +6,7 @@ editor: visual
 
 # Title
 
-### Authors: Preston O'Connor
+### Authors: Preston O'Connor, Khoa Dao
 
 ### Date: 4/22/2025
 
@@ -28,6 +28,36 @@ head(data)
 ```
 
 ## Data Description
+
+The dataset used for this analysis is titled **California Housing Prices**, originally sourced from the 1990 California census and made publicly available on [Kaggle](https://www.kaggle.com/datasets/camnugent/california-housing-prices).
+
+#### Data Structure and Size
+
+The dataset comprises 20,640 observations (rows) and 10 variables (columns), all in numeric form except for the `ocean_proximity` variable which is categorical. Each row represents a block group, which is the smallest geographical unit for which the U.S. Census Bureau publishes sample data.
+
+#### Variables
+
+Below is a summary of each variable:
+
+-   **longitude**: Geographic coordinate, measured in degrees (negative for Western Hemisphere).
+
+-   **latitude**: Geographic coordinate, measured in degrees (positive for Northern Hemisphere).
+
+-   **housing_median_age**: Median age of houses in the block.
+
+-   **total_rooms**: Total number of rooms in all houses within the block.
+
+-   **total_bedrooms**: Total number of bedrooms in all houses within the block.
+
+-   **population**: Total population of the block.
+
+-   **households**: Total number of households in the block.
+
+-   **median_income**: Median income of households within the block (scaled in tens of thousands).
+
+-   **median_house_value**: Median house value for households within the block (target variable, in USD).
+
+-   **ocean_proximity**: Categorical variable indicating the block’s proximity to the ocean (e.g., "INLAND", "\<1H OCEAN", "NEAR OCEAN").
 
 #### Data Cleaning
 
