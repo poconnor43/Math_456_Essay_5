@@ -191,11 +191,11 @@ ggplot(cv_results, aes(x = Fold, y = Silhouette)) +
 #### Cluster Visualization
 
 ```{r}
-explained_variance <- km_result$betweenss / km_result$totss
-cat("Explained Variance Ratio:", round(explained_variance, 3), "\n")
-
-sil <- silhouette(km_result$cluster, dist(data_pca))
-cat("Average Silhouette Score:", round(mean(sil[, 3]), 3), "\n")
+# explained_variance <- km_result$betweenss / km_result$totss
+# cat("Explained Variance Ratio:", round(explained_variance, 3), "\n")
+# 
+# sil <- silhouette(km_result$cluster, dist(data_pca))
+# cat("Average Silhouette Score:", round(mean(sil[, 3]), 3), "\n")
 
 
 
