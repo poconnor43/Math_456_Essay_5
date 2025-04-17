@@ -1,0 +1,213 @@
+---
+title: "Math_456_essay_5"
+format: pdf
+editor: visual
+---
+
+# Title
+
+### Authors: Preston O'Connor
+
+### Date: 4/22/2025
+
+## Introduction
+
+```{r}
+# data to download
+# delete any installed packages before uncommenting
+#install.packages(c( "tidyverse","factoextra", "FactoMineR"))
+
+library(cluster)
+library(tidyverse) #for data manipulation and visualization
+library(factoextra) # for the clustering and PCA visualiztion
+library(FactoMineR) # for PCA implementation
+# loading the csv
+data <- read.csv("housing.csv")
+head(data)
+# nrow(data)
+```
+
+## Data Description
+
+#### Data Cleaning
+
+```{r}
+# get rid of any non numerical features
+data_clean <- data %>%
+  select(where(is.numeric))
+str(data_clean)
+```
+
+### Removing Unknown rows and Outliers
+
+```{r}
+total <- sum(is.na(data_clean))
+total
+#cleaning the data points
+data_clean <- na.omit(data_clean)
+
+total <- sum(is.na(data_clean))
+total
+```
+
+-   removed 207 rows of data from the data set
+
+#### IQR Outlier Removal
+
+```{r}
+# Note it is fine to normalize latitude and longitude for out set up
+Q1 <- apply(data_clean, 2, quantile, 0.25)
+Q3 <- apply(data_clean, 2, quantile, 0.75)
+IQR_vals <- Q3 - Q1
+
+in_bounds <- apply(data_clean, 1, function(row) {
+  all(row >= (Q1 - 1.5 * IQR_vals) & row <= (Q3 + 1.5 * IQR_vals))
+})
+
+data_filtered <- data_clean[in_bounds, ]
+
+
+
+# Convert matrix result of scale() to data frame
+data_scaled <- as.data.frame(scale(data_filtered))
+```
+
+#### Boxplot
+
+```{r}
+data_scaled %>%
+  pivot_longer(cols = everything(), names_to = "Variable", values_to = "Value") %>%
+  ggplot(aes(x = Variable, y = Value, fill = Variable)) +
+  geom_boxplot(alpha = 0.6) +
+  theme_minimal() +
+  ggtitle("Boxplots After Z-Score Normalization") +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+-   Here, We can see there are still some minor outliers outside the normalized data set we are implementing
+
+## Analysis
+
+#### Applying PCA
+
+```{r}
+pca_res<- prcomp(data_scaled, center = TRUE, scale. = TRUE)
+pca_res
+```
+
+```{r}
+pca_result <- prcomp(data_scaled, center = TRUE, scale. = TRUE)
+pca_df <- as.data.frame(pca_result$x[, 1:4])  # Use first four principal components
+summary(pca_result)
+```
+
+#### Cumulative Variance
+
+```{r}
+explained_var <- pca_res$sdev^2
+prop_var <- explained_var / sum(explained_var)
+cum_var <- cumsum(prop_var)
+cum_var[1:3]
+
+```
+
+-   From this, we can see we should keep the first 3 components since they explain a high level of variance (81%). this will allow us to retain the most signal and reduce the noise and dimension
+
+```{r}
+# select PC1 and PC2 for the data 
+# data_pca <- as.data.frame(pca_result$x[, 1:2])
+# data_pca
+
+data_scaled <- scale(data_filtered %>% select(where(is.numeric)))
+
+# PCA
+pca_res <- prcomp(data_scaled)
+pca_df <- as.data.frame(pca_res$x[, 1:3]) 
+
+# Plot first 2 principal components
+fviz_pca_ind(pca_res, label = "none", addEllipses = TRUE, title = "PCA of Customer Data")
+```
+
+-   Here we can see that Dim1 and Dim2 do a good job and together explain about 62.8% of the total variance, which is strong. The data is fairly spread out and has two visible groupings from what we can tell in the graph.This suggest that our structure is suitable for a clustering implementation. This justifies our reasoning to reduce the data to the first 4 components.
+
+#### Determine Optimal K
+
+```{r}
+fviz_nbclust(pca_df, kmeans, method = "wss") +
+  geom_vline(xintercept = 5, linetype = 2) +
+  labs(title = "Elbow Method for Optimal K")
+```
+
+-   Here we see that the k=5 is the reasonable value as this is where the curve is starting to flatten out
+
+#### Run K-means Clustering (Wondering how the test works here)
+
+```{r}
+set.seed(123)
+
+km <- kmeans(pca_df, centers = 5, nstart = 50)
+
+
+sil <- silhouette(km$cluster, dist(pca_df))
+avg_sil <- mean(sil[, 3])
+
+
+variance_explained <- 1 - (km$tot.withinss / km$totss)
+
+
+cat("Silhouette score (k = 5):", round(avg_sil, 3), "\n")
+cat("Variance explained (k = 5):", round(variance_explained, 3), "\n")
+```
+
+-   For the Silhouette score of 0.302 we are in the somewhat moderate range. Many points may be reasonable close to their cluster centroids; however, there is bound to be overlap between the clusters.
+
+-   We captured a reasonably strong clustering that pertains to a meaningful structure
+
+## Model Evaluation and Prediction
+
+#### Evaluation of silhoute
+
+```{r}
+fviz_silhouette(sil)
+```
+
+#### Variance and Silhouette
+
+```{r}
+ggplot(results, aes(x = k)) +
+  geom_line(aes(y = silhouette), color = "blue", size = 1) +
+  geom_point(aes(y = silhouette), color = "blue") +
+  geom_line(aes(y = variance), color = "red", size = 1) +
+  geom_point(aes(y = variance), color = "red") +
+  labs(title = "Silhouette (blue) vs Variance Explained (red)",
+       x = "Number of Clusters (k)",
+       y = "Score") +
+  theme_minimal()
+```
+
+#### PCA Scatter Plot
+
+```{r}
+set.seed(123)
+km_result <- kmeans(pca_df, centers = 5, nstart = 25)
+
+# Then plot
+fviz_cluster(km_result, data = pca_df,
+             geom = "point",           # points only, no text
+             ellipse.type = "norm",    # shaded cluster region
+             palette = "Set2",
+             show.clust.cent = TRUE,   # show centroids
+             ggtheme = theme_minimal(),
+             main = "K-means Clustering (PCA-reduced)")
+```
+
+## Conclusion and Summary
+
+## References
+
+-   <https://www.kaggle.com/datasets/camnugent/california-housing-prices?select=housing.csv>
+
+-   2
+
+-   3
