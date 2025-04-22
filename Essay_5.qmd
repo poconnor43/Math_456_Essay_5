@@ -12,6 +12,12 @@ editor: visual
 
 ## Introduction
 
+Our model uses principal component analysis to group houses on a variety of features, including geo-spatial variables and indicators of socioeconomic status of neighborhood. The data set is a subset of an original dataset obtained from the 1990 California census. Grouping housing in this manner may allow us to pinpoint different solutions most suitable for resolving the affordable housing crisis, to which Lento et al. speaks. 
+
+The packages we used include cluster which is useful for cluster analysis functions, tidyverse for general visualization and data manipulation, factoextra for clustering and PCA visualization, and FactoMineR for PCA implementation. 
+
+To summarize our findings, the PCA seemed to work fairly well in explaining our data and reducing it to 2 dimensions. Significant differences in variance and other factors between clusters suggest that for different categories or groupings of houses, different strategies are needed.
+
 ```{r}
 # data to download
 # delete any installed packages before uncommenting
@@ -269,6 +275,6 @@ fviz_cluster(km_result, data = pca_df,
 
 -   <https://www.kaggle.com/datasets/camnugent/california-housing-prices?select=housing.csv>
 
--   2
+-   Lento, Rochelle E., Shaun Donovan, Sheila Crowley, Rebecca L. Peace, Mark H. Shelburne, Jeanne Peterson, Janet Kennedy, et al. “The Future of Affordable Housing.” *Journal of Affordable Housing & Community Development Law* 20, no. 2 (2011): 215–50. http://www.jstor.org/stable/41429170.
 
 -   3
