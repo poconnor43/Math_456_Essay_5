@@ -270,6 +270,13 @@ fviz_cluster(km_result, data = pca_df,
 -   This k-means cluster plot reduced by PCA with k = 5 indicates distinct but overlapping clusters, representing moderate suggesting moderate separation in the data. The two principal components (Dim1 and Dim2) explain around 66.6% of the variance, allowing one to meaningfully 2d-visualize the structure. While clusters 1 and 2 appear quite compact, other such cluster 5 overlap considerably more, indicating potential ambiguity in those group boundaries
 
 ## Conclusion and Summary
+SA6090292
+Conclusion
+In this project, we applied Principal Component Analysis (PCA) and K-means clustering to look at housing data from the 1990 California census into groups based upon various features including geographical location, socioeconomic indicators, and housing characteristics. After preprocessing the data by removing outliers and handling NA values, we successfully improved the quality of the dataset. By then extracting the first four principal components, we were able to capture over 92% of the total variance in the data, simplifying the complex dataset.
+Using our processed data, we implemented K-means clustering, determining that five clusters best fit the data via the elbow method. The clustering results showed moderate silhouette scores, indicating some grouping of the data but also areas of overlap between clusters. The clusters revealed areas for potential improvement in cluster separation, especially in clusters 2 and 5 where the silhouette scores were lower.
+The findings suggest that while PCA and K-means are somewhat useful tools for grouping houses based on key factors, the clustering model would benefit from further refinement. Additional consideration may be needed in choosing the optimal number of clusters. Further developments could involve other clustering techniques or could incorporate more relevant variables in order to improve model capability. 
+Nonetheless, this analysis offers some insight into the segmentation of California housing, insight that could lead to more targeted strategies for addressing the California housing crisis. 
+
 
 ## References
 
