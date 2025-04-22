@@ -6,7 +6,7 @@ editor: visual
 
 # Title
 
-### Authors: Preston O'Connor, Khoa Dao
+### Authors: Preston O'Connor
 
 ### Date: 4/22/2025
 
@@ -26,6 +26,8 @@ data <- read.csv("housing.csv")
 head(data)
 # nrow(data)
 ```
+
+## Data Description
 
 ## Data Description
 
@@ -126,11 +128,28 @@ pca_res<- prcomp(data_scaled, center = TRUE, scale. = TRUE)
 pca_res
 ```
 
+-   Form the principle components we have 9 standardized features that we extracted from the data
+
+-   PC1 is heavily influenced by the total_rooms, total_bedrooms, population, households
+
+-   PC2 is mostly driven by spatial features like long and lat
+
+-   PC3 relate strongly to median_income ad median_house_value
+
+-   PC4 is dominated by the housing_median_age
+
 ```{r}
 pca_result <- prcomp(data_scaled, center = TRUE, scale. = TRUE)
 pca_df <- as.data.frame(pca_result$x[, 1:4])  # Use first four principal components
 summary(pca_result)
+
 ```
+
+-   We chose PC1-PC4 because these capture over 92% of the total variance in the data
+
+-   PC! explains 41% and PC2 adds 21.5% giving a strong reduction in dimensional with minimal information loss
+
+    -   by implementing the top 4 PCs ensures most of our data's structure is preserved while reducing noiseand complexity
 
 #### Cumulative Variance
 
@@ -202,6 +221,14 @@ cat("Variance explained (k = 5):", round(variance_explained, 3), "\n")
 fviz_silhouette(sil)
 ```
 
+-   The average silhouette widt is 0.3 showcasing moderate cluster separation
+
+-   Cluster 1 and 4 show somewhat high silhouette widths, suggesting better internal cohesion.
+
+-   Clusters 2 and 5 have lower and more variable silhouettes scores, implying overlap and poor separations
+
+-   Overall, while some of the clusters are indeed well-formed, others may benefit from re-evaluation or a different choice of k
+
 #### Variance and Silhouette
 
 ```{r}
@@ -215,6 +242,8 @@ ggplot(results, aes(x = k)) +
        y = "Score") +
   theme_minimal()
 ```
+
+-   This shows a trade off between silhouette and variance as the number of our clusters increase. While variance explained continues to rise with more clusters, the silhouette score peaks around k=2, 3, then declines indicating that the cluster quality drops beyond that point. This suggest an optimal balance m
 
 #### PCA Scatter Plot
 
@@ -231,6 +260,8 @@ fviz_cluster(km_result, data = pca_df,
              ggtheme = theme_minimal(),
              main = "K-means Clustering (PCA-reduced)")
 ```
+
+-   This k-means cluster plot reduced by PCA with k = 5 indicates distinct but overlapping clusters, representing moderate suggesting moderate separation in the data. The two principal components (Dim1 and Dim2) explain around 66.6% of the variance, allowing one to meaningfully 2d-visualize the structure. While clusters 1 and 2 appear quite compact, other such cluster 5 overlap considerably more, indicating potential ambiguity in those group boundaries
 
 ## Conclusion and Summary
 
