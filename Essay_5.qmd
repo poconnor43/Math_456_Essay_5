@@ -6,7 +6,7 @@ editor: visual
 
 # Title
 
-### Authors: Preston O'Connor
+### Authors: Preston O'Connor, Anthony Yasan, Matthew Jacob, Khoa Dao, Nick Wierzbowski
 
 ### Date: 4/22/2025
 
@@ -267,8 +267,8 @@ fviz_cluster(km_result, data = pca_df,
 
 ## References
 
--   <https://www.kaggle.com/datasets/camnugent/california-housing-prices?select=housing.csv>
+-   Nugent, C. (2017, November 24). California housing prices. Kaggle. https://www.kaggle.com/datasets/camnugent/california-housing-prices?select=housing.csv 
 
--   2
+-   Kassambara. (2018, October 21). K-means clustering in R: Algorithm and practical examples. Datanovia. https://www.datanovia.com/en/lessons/k-means-clustering-in-r-algorith-and-practical-examples/ 
 
--   3
+-   Kryńska, K. (n.d.). Using K-means and PAM clustering for Customer Segmentation. RPubs. https://rpubs.com/kkrynska/USL_k-means 
