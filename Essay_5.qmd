@@ -1,3 +1,4 @@
+=======
 ---
 title: "Math_456_essay_5"
 format: pdf
@@ -6,17 +7,16 @@ editor: visual
 
 # Title
 
-### Authors: Preston O'Connor
+### Authors: Preston O'Connor, Anthony Yasan, Matthew Jacob, Khoa Dao, Nick Wierzbowski
 
 ### Date: 4/22/2025
 
 ## Introduction
 
-Our model uses principal component analysis to group houses on a variety of features, including geo-spatial variables and indicators of socioeconomic status of neighborhood. The data set is a subset of an original dataset obtained from the 1990 California census. Grouping housing in this manner may allow us to pinpoint different solutions most suitable for resolving the affordable housing crisis, to which Lento et al. speaks. 
-
-The packages we used include cluster which is useful for cluster analysis functions, tidyverse for general visualization and data manipulation, factoextra for clustering and PCA visualization, and FactoMineR for PCA implementation. 
-
+Our model uses principal component analysis to group houses on a variety of features, including geo-spatial variables and indicators of socioeconomic status of neighborhood. The data set is a subset of an original dataset obtained from the 1990 California census. Grouping housing in this manner may allow us to pinpoint different solutions most suitable for resolving the affordable housing crisis, to which Lento et al. speaks. 
+The packages we used include cluster which is useful for cluster analysis functions, tidyverse for general visualization and data manipulation, factoextra for clustering and PCA visualization, and FactoMineR for PCA implementation. 
 To summarize our findings, the PCA seemed to work fairly well in explaining our data and reducing it to 2 dimensions. Significant differences in variance and other factors between clusters suggest that for different categories or groupings of houses, different strategies are needed.
+
 
 ```{r}
 # data to download
@@ -273,8 +273,11 @@ fviz_cluster(km_result, data = pca_df,
 
 ## References
 
--   <https://www.kaggle.com/datasets/camnugent/california-housing-prices?select=housing.csv>
+-   Nugent, C. (2017, November 24). California housing prices. Kaggle. https://www.kaggle.com/datasets/camnugent/california-housing-prices?select=housing.csv 
 
--   Lento, Rochelle E., Shaun Donovan, Sheila Crowley, Rebecca L. Peace, Mark H. Shelburne, Jeanne Peterson, Janet Kennedy, et al. “The Future of Affordable Housing.” *Journal of Affordable Housing & Community Development Law* 20, no. 2 (2011): 215–50. http://www.jstor.org/stable/41429170.
+-   Kassambara. (2018, October 21). K-means clustering in R: Algorithm and practical examples. Datanovia. https://www.datanovia.com/en/lessons/k-means-clustering-in-r-algorith-and-practical-examples/ 
 
--   3
+-   Kryńska, K. (n.d.). Using K-means and PAM clustering for Customer Segmentation. RPubs. https://rpubs.com/kkrynska/USL_k-means 
+>>>>>>> 02ae82986c97859750f8e7d4ad40bae2c4c0faf6
+
+- Lento, Rochelle E., Shaun Donovan, Sheila Crowley, Rebecca L. Peace, Mark H. Shelburne, Jeanne Peterson, Janet Kennedy, et al. “The Future of Affordable Housing.” Journal of Affordable Housing & Community Development Law 20, no. 2 (2011): 215–50. http://www.jstor.org/stable/41429170.
