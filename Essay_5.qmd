@@ -238,6 +238,27 @@ fviz_silhouette(sil)
 #### Variance and Silhouette
 
 ```{r}
+set.seed(123)
+
+k_values <- 2:10
+silhouette_scores <- numeric(length(k_values))
+variance_scores <- numeric(length(k_values))
+
+for (i in seq_along(k_values)) {
+  km <- kmeans(pca_df, centers = k_values[i], nstart = 50)
+  sil <- silhouette(km$cluster, dist(pca_df))
+  
+  silhouette_scores[i] <- mean(sil[, 3])
+  variance_scores[i] <- 1 - (km$tot.withinss / km$totss)
+}
+
+results <- data.frame(
+  k = k_values,
+  silhouette = silhouette_scores,
+  variance = variance_scores
+)
+
+
 ggplot(results, aes(x = k)) +
   geom_line(aes(y = silhouette), color = "blue", size = 1) +
   geom_point(aes(y = silhouette), color = "blue") +
