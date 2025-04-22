@@ -153,7 +153,7 @@ summary(pca_result)
 
 -   We chose PC1-PC4 because these capture over 92% of the total variance in the data
 
--   PC! explains 41% and PC2 adds 21.5% giving a strong reduction in dimensional with minimal information loss
+-   PC1 explains 41% and PC2 adds 21.5% giving a strong reduction in dimensional with minimal information loss
 
     -   by implementing the top 4 PCs ensures most of our data's structure is preserved while reducing noiseand complexity
 
