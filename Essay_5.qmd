@@ -1,8 +1,10 @@
-=======
 ---
 title: "Math_456_essay_5"
 format: pdf
 editor: visual
+header-includes:
+  \usepackage{fvextra}
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 ---
 
 # Title
@@ -18,7 +20,7 @@ The packages we used include cluster which is useful for cluster analysis functi
 To summarize our findings, the PCA seemed to work fairly well in explaining our data and reducing it to 2 dimensions. Significant differences in variance and other factors between clusters suggest that for different categories or groupings of houses, different strategies are needed.
 
 
-```{r}
+```{r include=FALSE}
 # data to download
 # delete any installed packages before uncommenting
 #install.packages(c( "tidyverse","factoextra", "FactoMineR"))
@@ -33,7 +35,6 @@ head(data)
 # nrow(data)
 ```
 
-## Data Description
 
 ## Data Description
 
