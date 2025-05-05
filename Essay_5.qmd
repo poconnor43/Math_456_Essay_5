@@ -1,5 +1,5 @@
 ---
-title: "Math_456_essay_5"
+title: "Housing Price Prediction with Principal Component Analysis"
 format: pdf
 editor: visual
 header-includes:
@@ -7,18 +7,13 @@ header-includes:
   \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 ---
 
-# Title
-
 ### Authors: Preston O'Connor, Anthony Yasan, Matthew Jacob, Khoa Dao, Nick Wierzbowski
 
 ### Date: 4/22/2025
 
 ## Introduction
 
-Our model uses principal component analysis to group houses on a variety of features, including geo-spatial variables and indicators of socioeconomic status of neighborhood. The data set is a subset of an original dataset obtained from the 1990 California census. Grouping housing in this manner may allow us to pinpoint different solutions most suitable for resolving the affordable housing crisis, to which Lento et al. speaks. 
-The packages we used include cluster which is useful for cluster analysis functions, tidyverse for general visualization and data manipulation, factoextra for clustering and PCA visualization, and FactoMineR for PCA implementation. 
-To summarize our findings, the PCA seemed to work fairly well in explaining our data and reducing it to 2 dimensions. Significant differences in variance and other factors between clusters suggest that for different categories or groupings of houses, different strategies are needed.
-
+Our model uses principal component analysis to group houses on a variety of features, including geo-spatial variables and indicators of socioeconomic status of neighborhood. The data set is a subset of an original dataset obtained from the 1990 California census. Grouping housing in this manner may allow us to pinpoint different solutions most suitable for resolving the affordable housing crisis, to which Lento et al. speaks. The packages we used include cluster which is useful for cluster analysis functions, tidyverse for general visualization and data manipulation, factoextra for clustering and PCA visualization, and FactoMineR for PCA implementation. To summarize our findings, the PCA seemed to work fairly well in explaining our data and reducing it to 2 dimensions. Significant differences in variance and other factors between clusters suggest that for different categories or groupings of houses, different strategies are needed.
 
 ```{r include=FALSE}
 # data to download
@@ -34,7 +29,6 @@ data <- read.csv("housing.csv")
 head(data)
 # nrow(data)
 ```
-
 
 ## Data Description
 
@@ -292,21 +286,15 @@ fviz_cluster(km_result, data = pca_df,
 -   This k-means cluster plot reduced by PCA with k = 5 indicates distinct but overlapping clusters, representing moderate suggesting moderate separation in the data. The two principal components (Dim1 and Dim2) explain around 66.6% of the variance, allowing one to meaningfully 2d-visualize the structure. While clusters 1 and 2 appear quite compact, other such cluster 5 overlap considerably more, indicating potential ambiguity in those group boundaries
 
 ## Conclusion and Summary
-SA6090292
-Conclusion
-In this project, we applied Principal Component Analysis (PCA) and K-means clustering to look at housing data from the 1990 California census into groups based upon various features including geographical location, socioeconomic indicators, and housing characteristics. After preprocessing the data by removing outliers and handling NA values, we successfully improved the quality of the dataset. By then extracting the first four principal components, we were able to capture over 92% of the total variance in the data, simplifying the complex dataset.
-Using our processed data, we implemented K-means clustering, determining that five clusters best fit the data via the elbow method. The clustering results showed moderate silhouette scores, indicating some grouping of the data but also areas of overlap between clusters. The clusters revealed areas for potential improvement in cluster separation, especially in clusters 2 and 5 where the silhouette scores were lower.
-The findings suggest that while PCA and K-means are somewhat useful tools for grouping houses based on key factors, the clustering model would benefit from further refinement. Additional consideration may be needed in choosing the optimal number of clusters. Further developments could involve other clustering techniques or could incorporate more relevant variables in order to improve model capability. 
-Nonetheless, this analysis offers some insight into the segmentation of California housing, insight that could lead to more targeted strategies for addressing the California housing crisis. 
 
+SA6090292 Conclusion In this project, we applied Principal Component Analysis (PCA) and K-means clustering to look at housing data from the 1990 California census into groups based upon various features including geographical location, socioeconomic indicators, and housing characteristics. After preprocessing the data by removing outliers and handling NA values, we successfully improved the quality of the dataset. By then extracting the first four principal components, we were able to capture over 92% of the total variance in the data, simplifying the complex dataset. Using our processed data, we implemented K-means clustering, determining that five clusters best fit the data via the elbow method. The clustering results showed moderate silhouette scores, indicating some grouping of the data but also areas of overlap between clusters. The clusters revealed areas for potential improvement in cluster separation, especially in clusters 2 and 5 where the silhouette scores were lower. The findings suggest that while PCA and K-means are somewhat useful tools for grouping houses based on key factors, the clustering model would benefit from further refinement. Additional consideration may be needed in choosing the optimal number of clusters. Further developments could involve other clustering techniques or could incorporate more relevant variables in order to improve model capability. Nonetheless, this analysis offers some insight into the segmentation of California housing, insight that could lead to more targeted strategies for addressing the California housing crisis.
 
 ## References
 
--   Nugent, C. (2017, November 24). California housing prices. Kaggle. https://www.kaggle.com/datasets/camnugent/california-housing-prices?select=housing.csv 
+-   Nugent, C. (2017, November 24). California housing prices. Kaggle. https://www.kaggle.com/datasets/camnugent/california-housing-prices?select=housing.csv
 
--   Kassambara. (2018, October 21). K-means clustering in R: Algorithm and practical examples. Datanovia. https://www.datanovia.com/en/lessons/k-means-clustering-in-r-algorith-and-practical-examples/ 
+-   Kassambara. (2018, October 21). K-means clustering in R: Algorithm and practical examples. Datanovia. https://www.datanovia.com/en/lessons/k-means-clustering-in-r-algorith-and-practical-examples/
 
--   Kryńska, K. (n.d.). Using K-means and PAM clustering for Customer Segmentation. RPubs. https://rpubs.com/kkrynska/USL_k-means 
->>>>>>> 02ae82986c97859750f8e7d4ad40bae2c4c0faf6
+-   Kryńska, K. (n.d.). Using K-means and PAM clustering for Customer Segmentation. RPubs. https://rpubs.com/kkrynska/USL_k-means \>\>\>\>\>\>\> 02ae82986c97859750f8e7d4ad40bae2c4c0faf6
 
-- Lento, Rochelle E., Shaun Donovan, Sheila Crowley, Rebecca L. Peace, Mark H. Shelburne, Jeanne Peterson, Janet Kennedy, et al. “The Future of Affordable Housing.” Journal of Affordable Housing & Community Development Law 20, no. 2 (2011): 215–50. http://www.jstor.org/stable/41429170.
+-   Lento, Rochelle E., Shaun Donovan, Sheila Crowley, Rebecca L. Peace, Mark H. Shelburne, Jeanne Peterson, Janet Kennedy, et al. “The Future of Affordable Housing.” Journal of Affordable Housing & Community Development Law 20, no. 2 (2011): 215–50. http://www.jstor.org/stable/41429170.
