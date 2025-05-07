@@ -13,7 +13,7 @@ header-includes:
 
 ## Introduction
 
-Our model uses principal component analysis to group houses on a variety of features, including geo-spatial variables and indicators of socioeconomic status of neighborhood. The data set is a subset of an original dataset obtained from the 1990 California census. Grouping housing in this manner may allow us to pinpoint different solutions most suitable for resolving the affordable housing crisis, to which Lento et al. speaks. The packages we used include cluster which is useful for cluster analysis functions, tidyverse for general visualization and data manipulation, factoextra for clustering and PCA visualization, and FactoMineR for PCA implementation. To summarize our findings, the PCA seemed to work fairly well in explaining our data and reducing it to 2 dimensions. Significant differences in variance and other factors between clusters suggest that for different categories or groupings of houses, different strategies are needed.
+Our model uses principal component analysis to group houses on a variety of features, including geo-spatial variables and indicators of socioeconomic status of neighborhood. The data set is a subset of an original dataset obtained from the 1990 California census. Grouping housing in this manner may allow us to pinpoint different solutions most suitable for resolving the affordable housing crisis, to which Lento et al. speaks. The packages we used include cluster which is useful for cluster analysis functions, tidyverse for general visualization and data manipulation, factoextra for clustering and PCA visualization, and FactoMineR for PCA implementation. To summarize our findings, the PCA seemed to work fairly well in explaining our data and reducing it to 4 components. Significant differences in variance and other factors between clusters suggest that for different categories or groupings of houses, different strategies are needed.
 
 ```{r include=FALSE}
 # data to download
@@ -129,7 +129,7 @@ pca_res<- prcomp(data_scaled, center = TRUE, scale. = TRUE)
 pca_res
 ```
 
--   Form the principle components we have 9 standardized features that we extracted from the data
+-   From the principle components we have 9 standardized features that we extracted from the data
 
 -   PC1 is heavily influenced by the total_rooms, total_bedrooms, population, households
 
@@ -150,7 +150,7 @@ summary(pca_result)
 
 -   PC1 explains 41% and PC2 adds 21.5% giving a strong reduction in dimensional with minimal information loss
 
-    -   by implementing the top 4 PCs ensures most of our data's structure is preserved while reducing noiseand complexity
+    -   by implementing the top 4 PCs ensures most of our data structure is preserved while reducing noise and complexity
 
 #### Cumulative Variance
 
@@ -216,13 +216,13 @@ cat("Variance explained (k = 5):", round(variance_explained, 3), "\n")
 
 ## Model Evaluation and Prediction
 
-#### Evaluation of silhoute
+#### Evaluation of silhouette
 
 ```{r}
 fviz_silhouette(sil)
 ```
 
--   The average silhouette widt is 0.3 showcasing moderate cluster separation
+-   The average silhouette width is 0.3 showcasing moderate cluster separation
 
 -   Cluster 1 and 4 show somewhat high silhouette widths, suggesting better internal cohesion.
 
@@ -265,7 +265,7 @@ ggplot(results, aes(x = k)) +
   theme_minimal()
 ```
 
--   This shows a trade off between silhouette and variance as the number of our clusters increase. While variance explained continues to rise with more clusters, the silhouette score peaks around k=2, 3, then declines indicating that the cluster quality drops beyond that point. This suggest an optimal balance m
+-   This shows a trade off between silhouette and variance as the number of our clusters increase. While variance explained continues to rise with more clusters, the silhouette score peaks around k=2, 3, then declines indicating that the cluster quality drops beyond that point. This suggest an optimal balance
 
 #### PCA Scatter Plot
 
@@ -287,7 +287,7 @@ fviz_cluster(km_result, data = pca_df,
 
 ## Conclusion and Summary
 
-SA6090292 Conclusion In this project, we applied Principal Component Analysis (PCA) and K-means clustering to look at housing data from the 1990 California census into groups based upon various features including geographical location, socioeconomic indicators, and housing characteristics. After preprocessing the data by removing outliers and handling NA values, we successfully improved the quality of the dataset. By then extracting the first four principal components, we were able to capture over 92% of the total variance in the data, simplifying the complex dataset. Using our processed data, we implemented K-means clustering, determining that five clusters best fit the data via the elbow method. The clustering results showed moderate silhouette scores, indicating some grouping of the data but also areas of overlap between clusters. The clusters revealed areas for potential improvement in cluster separation, especially in clusters 2 and 5 where the silhouette scores were lower. The findings suggest that while PCA and K-means are somewhat useful tools for grouping houses based on key factors, the clustering model would benefit from further refinement. Additional consideration may be needed in choosing the optimal number of clusters. Further developments could involve other clustering techniques or could incorporate more relevant variables in order to improve model capability. Nonetheless, this analysis offers some insight into the segmentation of California housing, insight that could lead to more targeted strategies for addressing the California housing crisis.
+In this project, we applied Principal Component Analysis (PCA) and K-means clustering to look at housing data from the 1990 California census into groups based upon various features including geographical location, socioeconomic indicators, and housing characteristics. After preprocessing the data by removing outliers and handling NA values, we successfully improved the quality of the dataset. By then extracting the first four principal components, we were able to capture over 92% of the total variance in the data, simplifying the complex dataset. Using our processed data, we implemented K-means clustering, determining that five clusters best fit the data via the elbow method. The clustering results showed moderate silhouette scores, indicating some grouping of the data but also areas of overlap between clusters. The clusters revealed areas for potential improvement in cluster separation, especially in clusters 2 and 5 where the silhouette scores were lower. The findings suggest that while PCA and K-means are somewhat useful tools for grouping houses based on key factors, the clustering model would benefit from further refinement. Additional consideration may be needed in choosing the optimal number of clusters. Further developments could involve other clustering techniques or could incorporate more relevant variables in order to improve model capability. Nonetheless, this analysis offers some insight into the segmentation of California housing, insight that could lead to more targeted strategies for addressing the California housing crisis.
 
 ## References
 
